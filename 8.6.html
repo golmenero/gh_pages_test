@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)http://localhost:90/sew/Extraordinaria/eliminarJuego.php -->
+<!-- saved from url=(0055)http://localhost:90/sew/Extraordinaria/buscarJuego.php# -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="application-name" content="Expositor de Videojuegos">
@@ -8,8 +8,8 @@
     <meta name="keywords" content="español, videojuegos, nintendo, microsoft, sony">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
-    <link rel="stylesheet" type="text/css" href="./12_files/estilo.css">
-    <link rel="stylesheet" type="text/css" href="./12_files/estilo-general.css">
+    <link rel="stylesheet" type="text/css" href="./8.6_files/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./8.6_files/estilo-general.css">
 
     <title> Expositor de Videojuegos - Base de Datos</title>
 </head>
@@ -30,16 +30,15 @@
         </nav>
     </header>
     <main>
-        <h2>Eliminar Videojuego</h2>
-        <form method="post" action="http://localhost:90/sew/Extraordinaria/eliminarJuego.php#">
+        <h2>Buscar Juego</h2>
+        <form method="post" action="http://localhost:90/sew/Extraordinaria/buscarJuego.php#">
             <div class="divForm">
-                <p class="pForm">Videojuego: </p>
-                <select class="formBD" name="videojuego" title="Videojuego">
-                                    </select>
+                <p class="pForm">Nombre: </p>
+                <input class="formBD" type="text" title="Nombre" name="nombre" required="">
             </div>
-            <input class="submitBtn" type="submit" title="Borrar Videojuego" value="Eliminar">
-                    </form>
-    </main>
+            <input class="submitBtn" type="submit" title="Buscar Videojuego" value="Buscar">
+        </form>
+        <div class="divDatos"><h3>Acerca del Videojuego</h3><ul><li>Nombre: Dark Souls</li><li>Género: Rol</li><li>Fecha de Lanzamiento: 2011-09-22</li><li>Duración (en h): 40</li><li>Director: Hidetaka Miyazaki</li><li>Número de Ventas: 27000000</li></ul><h3>Acerca de su Plataforma</h3><ul><li>Nombre: XBOX 360</li><li>Generación: 7</li><li>Fecha de Lanzamiento: 2005-11-22</li><li>Propietario: Microsoft</li></ul><h3>Acerca de su Desarrolladora</h3><ul><li>Nombre: FromSoftware</li><li>Director: Hidetaka Miyazaki</li><li>Año de Fundación: 1986</li><li>Propietario: Kadokawa Shoten</li></ul></div>    </main>
     <footer>
         <a class="footerBtn" href="http://localhost:90/sew/Extraordinaria/videojuegosPHP.php">Volver al Menú de Base de Datos</a>
     </footer>

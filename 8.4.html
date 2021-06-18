@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)http://localhost:90/sew/Extraordinaria/buscarJuego.php -->
+<!-- saved from url=(0056)http://localhost:90/sew/Extraordinaria/eliminarJuego.php -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="application-name" content="Expositor de Videojuegos">
@@ -8,8 +8,8 @@
     <meta name="keywords" content="español, videojuegos, nintendo, microsoft, sony">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
-    <link rel="stylesheet" type="text/css" href="./13_files/estilo.css">
-    <link rel="stylesheet" type="text/css" href="./13_files/estilo-general.css">
+    <link rel="stylesheet" type="text/css" href="./8.4_files/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./8.4_files/estilo-general.css">
 
     <title> Expositor de Videojuegos - Base de Datos</title>
 </head>
@@ -30,15 +30,16 @@
         </nav>
     </header>
     <main>
-        <h2>Buscar Juego</h2>
-        <form method="post" action="http://localhost:90/sew/Extraordinaria/buscarJuego.php#">
+        <h2>Eliminar Videojuego</h2>
+        <form method="post" action="http://localhost:90/sew/Extraordinaria/eliminarJuego.php#">
             <div class="divForm">
-                <p class="pForm">Nombre: </p>
-                <input class="formBD" type="text" title="Nombre" name="nombre" required="">
+                <p class="pForm">Videojuego: </p>
+                <select class="formBD" name="videojuego" title="Videojuego">
+                                    </select>
             </div>
-            <input class="submitBtn" type="submit" title="Buscar Videojuego" value="Buscar">
-        </form>
-            </main>
+            <input class="submitBtn" type="submit" title="Borrar Videojuego" value="Eliminar">
+                    </form>
+    </main>
     <footer>
         <a class="footerBtn" href="http://localhost:90/sew/Extraordinaria/videojuegosPHP.php">Volver al Menú de Base de Datos</a>
     </footer>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)http://localhost:90/sew/Extraordinaria/anadirDesarrolladora.php -->
+<!-- saved from url=(0059)http://localhost:90/sew/Extraordinaria/anadirPlataforma.php -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="application-name" content="Expositor de Videojuegos">
@@ -8,8 +8,8 @@
     <meta name="keywords" content="español, videojuegos, nintendo, microsoft, sony">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
-    <link rel="stylesheet" type="text/css" href="./11_files/estilo.css">
-    <link rel="stylesheet" type="text/css" href="./11_files/estilo-general.css">
+    <link rel="stylesheet" type="text/css" href="./8.2_files/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./8.2_files/estilo-general.css">
 
     <title> Expositor de Videojuegos - Base de Datos</title>
 </head>
@@ -30,25 +30,25 @@
         </nav>
     </header>
     <main>
-        <h2>Añadir Desarrolladora</h2>
-        <form method="post" action="http://localhost:90/sew/Extraordinaria/anadirDesarrolladora.php#">
+        <h2>Añadir Plataforma</h2>
+        <form method="post" action="http://localhost:90/sew/Extraordinaria/anadirPlataforma.php#">
             <div class="divForm">
                 <p class="pForm">Nombre: </p>
                 <input class="formBD" type="text" title="Nombre" name="nombre" required="">
             </div>
             <div class="divForm">
-                <p class="pForm">Director: </p>
-                <input class="formBD" type="text" title="Director" name="director" required="">
+                <p class="pForm">Generación: </p>
+                <input class="formBD" type="number" title="Generación" name="generacion" min="1" max="10" required="">
             </div>
             <div class="divForm">
-                <p class="pForm">Año de Fundacion: </p>
-                <input class="formBD" type="number" title="anoFundacion" name="anoFundacion" min="0" max="2021" required="">
+                <p class="pForm">Fecha de Lanzamiento: </p>
+                <input class="formBD" type="date" title="Fecha de Lanzamiento" name="fechaLanzamiento" required="">
             </div>
             <div class="divForm">
                 <p class="pForm">Propietario: </p>
                 <input class="formBD" type="text" title="Propietario" name="propietario" required="">
             </div>
-            <input class="submitBtn" type="submit" title="Añadir Paciente" value="Añadir Desarrolladora">
+            <input class="submitBtn" type="submit" title="Añadir Paciente" value="Añadir Plataforma">
         </form>
             </main>
     <footer>
