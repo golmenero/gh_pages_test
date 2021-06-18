@@ -1,0 +1,17 @@
+html {
+  /* 0,0,1 */
+  color: black;
+  background-color: lightgray;
+}
+
+.navActive{
+  /* 0,1,0 */
+  background-color: lightgray;
+  color: #272324;
+}
+
+.footerBtn {
+  /* 0,1,0 */
+  color: white;
+  background-color: #272324;
+}

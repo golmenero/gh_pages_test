@@ -1,0 +1,24 @@
+/*CUERPO DE LA PAGINA*/
+html {
+  /* 0,0,1 */
+  color: black;
+  background-color: #931717;
+}
+
+.navActive{
+  /* 0,1,0 */
+  background-color: #931717;
+  color: white;
+}
+
+.footerBtn {
+  /* 0,1,0 */
+  color: white;
+  background-color: #5B0101;
+}
+
+h2 {
+  /* 0,0,1 */
+  background-color: #931717;
+  color: white;
+}

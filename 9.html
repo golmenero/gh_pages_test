@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)http://localhost:90/sew/Extraordinaria/anadirJuego.php -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="application-name" content="Expositor de Videojuegos">
+    <meta name="author" content="Carlos Gómez Colmenero">
+    <meta name="description" content="Página web dedicada a los fans de los videojuegos.">
+    <meta name="keywords" content="español, videojuegos, nintendo, microsoft, sony">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+
+    <link rel="stylesheet" type="text/css" href="./9_files/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./9_files/estilo-general.css">
+
+    <title> Expositor de Videojuegos - Base de Datos</title>
+</head>
+
+<body>
+    <header>
+        <h1>Expositor de Videojuegos</h1>
+        <nav>
+            <ul>
+                <li><a href="http://localhost:90/sew/Extraordinaria/index.html">Inicio</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/historia.html">Historia del Videojuego</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/playstation.html">PlayStation</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/xbox.html">XBOX</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/switch.html">Nintendo Switch</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/videojuegosXML.html">Mis Videojuegos (XML)</a></li>
+                <li><a class="navActive" href="http://localhost:90/sew/Extraordinaria/videojuegosPHP.php">Base de Datos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Añadir Videojuego</h2>
+        <form method="post" action="http://localhost:90/sew/Extraordinaria/anadirJuego.php#">
+            <div class="divForm">
+                <p class="pForm">Nombre: </p>
+                <input class="formBD" type="text" title="Nombre" name="nombre" required="">
+            </div>
+            <div class="divForm">
+                <p class="pForm">Género: </p>
+                <input class="formBD" type="text" title="Género" name="genero" required="">
+            </div>
+            <div class="divForm">
+                <p class="pForm">Fecha de Lanzamiento: </p>
+                <input class="formBD" type="date" title="Fecha Lanzamiento" name="fechaLanzamiento" required="">
+            </div>
+            <div class="divForm">
+                <p class="pForm">Plataforma: </p>
+                <select class="formBD" name="plataforma" title="Plataforma" required="">
+                                    </select>
+            </div>
+            <div class="divForm">
+                <p class="pForm">Desarrolladora: </p>
+                <select class="formBD" name="desarrolladora" title="Desarrolladora" required="">
+                                    </select>
+            </div>
+            <div class="divForm">
+                <p class="pForm">Duración (H): </p>
+                <input class="formBD" type="number" title="Duración" name="duracion" min="1" max="9999" required="">
+            </div>
+            <div class="divForm">
+                <p class="pForm">Director: </p>
+                <input class="formBD" type="text" title="Director" name="director" required="">
+            </div>
+            <div class="divForm">
+                <p class="pForm">Número de Ventas: </p>
+                <input class="formBD" type="number" title="Numero de ventas" name="numeroVentas" min="0" required="">
+            </div>
+            <input class="submitBtn" type="submit" title="Añadir Paciente" value="Añadir Videojuego">
+        </form>
+            </main>
+    <footer>
+        <a class="footerBtn" href="http://localhost:90/sew/Extraordinaria/videojuegosPHP.php">Volver al Menú de Base de Datos</a>
+    </footer>
+
+
+</body></html>

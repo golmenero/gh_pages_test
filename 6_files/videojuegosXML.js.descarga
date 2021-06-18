@@ -1,0 +1,334 @@
+class VideogameParser {
+    constructor() {
+        this.coordenadas = [];
+        this.marcadoresRuta = [];
+        this.parsedData;
+        this.videogames = [];
+        this.mapasMostrados = [];
+        this.anosPublicacion = [];
+
+        this.svgMostrado = false;
+    }
+
+    showElements() {
+        var divBotones = $("#botonesGraficos")[0];
+        divBotones.innerHTML += '<input type="button" id="mostrarSvg"' +
+            'value="Línea Temporal (SVG)" onclick="reader.generateSVG()"/>';
+
+        var line = "<ul>";
+        this.videogames = this.parsedData.getElementsByTagName("videogame");
+
+        for (var i = 0; i < this.videogames.length; i++) {
+            var videogame = this.videogames[i];
+            var nombre = videogame.getAttribute("name");
+            var nombreAPI = videogame.getElementsByTagName("nameAPI")[0].textContent;
+            var genero = videogame.getElementsByTagName("genero")[0].textContent;
+            var precio = videogame.getElementsByTagName("precio")[0].textContent;
+            var fechaLanzamiento = videogame.getElementsByTagName("fechaLanzamiento")[0].textContent;
+            var plataformas = videogame.getElementsByTagName("plataforma");
+            var duracion = videogame.getElementsByTagName("duracion")[0].textContent;
+            var portada = videogame.getElementsByTagName("portada")[0].textContent;
+            var descripcion = videogame.getElementsByTagName("descripcion")[0].textContent;
+            var copias = videogame.getElementsByTagName("numVentas")[0].textContent;
+            var trailer = videogame.getElementsByTagName("trailer")[0].textContent;
+
+            line += "<li class='liVideogame'>";
+            line += '<img class="imgCover" id="portada' + i + '" src="' + portada + '" alt="' + nombre + '"/>';
+            line += '<h3><em>' + nombre + '</em></h3>'
+            line += '<p id="apiInfo' + i + '"></p>'
+            line += '<p><strong>Género: </strong>' + genero + '<strong> ~ Fecha de Lanzamiento: </strong>';
+            line += fechaLanzamiento + '<strong> ~ Numero de copias vendidas: </strong>' + copias + '<strong> ~ Precio: </strong>' + precio + '€ <strong> ~ Duración: </strong>' + duracion + '</p>';
+            line += '<p><strong>Plataformas: </strong>' + this.plataformasAString(plataformas) + '</p>'
+            line += '<p>' + descripcion + '</p>'
+            line += '<input  type="button" id="mostrarPersonajes' + i + '" value="Acerca de sus Personajes" onclick="reader.mostrarPersonajes(' + i + ')"/>';
+            line += '<input  type="button" id="mostrarMapa' + i + '" value="Acerca de su desarrolladora" onclick="reader.mostrarMapa(' + i + ')"/>';
+            line += '<div class="divDatos"  id="divDatos' + i + '"></div><div class="divMapa" id="mapaDiv' + i + '"></div>';
+            line += '<div class="divPersonajes" id="personajesDiv' + i + '"></div>';
+            line += '<a class="trailerLink" href="' + trailer + '"> Haz click aquí para ver el Tráiler de lanzamiento</a>';
+            line += "</li>";
+
+            this.getGameDetailsAPI(nombreAPI, i);
+        }
+        line += "</ul>";
+        var content = $("#container")[0];
+        content.innerHTML += line;
+    }
+
+    plataformasAString(portadas) {
+        var line = "";
+        var i;
+        for (i = 0; i < portadas.length; i++) {
+            line += portadas[i].textContent;
+            if (i != portadas.length - 1)
+                line += ', '
+        }
+        return line;
+    }
+
+    parsePersonajes(personajes) {
+        var line = "<h4>Personajes</h4>";
+        var i;
+        for (i = 0; i < personajes.length; i++) {
+            var nombre = personajes[i].getElementsByTagName('nombre')[0].textContent;
+            var historia = personajes[i].getElementsByTagName('historia')[0].textContent;
+            line += '<h5>' + nombre + '</h5><p>' + historia + '</p>';
+        }
+        return line
+    }
+
+    mostrarPersonajes(indice) {
+        var divPersonajes = $("#personajesDiv" + indice)[0];
+        var button = $("#mostrarPersonajes" + indice)[0];
+
+        if (!button.value.includes("Ocultar")) {
+            var personajes = this.videogames[indice].getElementsByTagName("personaje");
+            divPersonajes.innerHTML += this.parsePersonajes(personajes);
+            button.value = "Ocultar Acerca de sus Personajes";
+        } else {
+            divPersonajes.innerHTML = "";
+            button.value = "Acerca de sus Personajes";
+        }
+    }
+
+    rellenaAnosPublicacion() {
+        this.anosPublicacion = [];
+        for (var i = 0; i < this.videogames.length; i++) {
+            var videogame = this.videogames[i];
+            var anoLanzamiento = videogame.getElementsByTagName("fechaLanzamiento")[0].textContent.split('-')[0];
+            this.anosPublicacion.push(anoLanzamiento);
+        }
+    }
+
+    getMayorAnoPublicacion() {
+        var salida = parseInt(this.anosPublicacion[0]);
+        for (var i = 0; i < this.anosPublicacion.length; i++) {
+            if (parseInt(this.anosPublicacion[i]) > salida)
+                salida = this.anosPublicacion[i];
+        }
+        return salida;
+    }
+
+    getMenorAnoPublicacion() {
+        var salida = parseInt(this.anosPublicacion[0]);
+        for (var i = 0; i < this.anosPublicacion.length; i++) {
+            if (parseInt(this.anosPublicacion[i]) < salida)
+                salida = this.anosPublicacion[i];
+        }
+        return salida;
+    }
+
+    drawSvgLine(valX1, valX2, stroke) {
+        var linea = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        linea.setAttribute("x1", valX1)
+        linea.setAttribute("x2", valX2)
+        linea.setAttribute("y1", "45")
+        linea.setAttribute("y2", "55")
+        linea.setAttribute("stroke", "black")
+        linea.setAttribute("stroke-width", stroke)
+        return linea;
+    }
+
+    drawSvgText(valX, valY, textoCont) {
+        var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        texto.setAttribute("x", valX)
+        texto.setAttribute("y", valY)
+        texto.setAttribute("transform", "rotate(45)")
+        texto.setAttribute("fill", "black")
+        texto.setAttribute("stroke", "none")
+        texto.textContent = textoCont;
+        return texto;
+    }
+
+    // API SVG
+    generateSVG() {
+        if (!this.svgMostrado) {
+            this.rellenaAnosPublicacion();
+
+            // Creamos el SVG
+            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "1100");
+            svg.setAttribute("height", "250");
+            svg.setAttribute("viewBox", "0 0 1100 250");
+
+            // Creamos la linea principal y la añadimos al SVG
+            var lineaPrincipal = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            lineaPrincipal.setAttribute("x1", "100")
+            lineaPrincipal.setAttribute("x2", "900")
+            lineaPrincipal.setAttribute("y1", "50")
+            lineaPrincipal.setAttribute("y2", "50")
+            lineaPrincipal.setAttribute("stroke", "black")
+            lineaPrincipal.setAttribute("stroke-width", "4")
+
+            svg.appendChild(lineaPrincipal)
+
+
+            this.videogames = this.parsedData.getElementsByTagName("videogame");;
+            var mayor = this.getMayorAnoPublicacion();
+            var menor = this.getMenorAnoPublicacion();
+            var initX;
+            var initY;
+            for (var i = 0; i < this.videogames.length; i++) {
+                // Creamos la linea temporal y el texto correspondiente y los añadimos al SVG
+                var videojuego = this.videogames[i];
+                var anoLanzamiento = parseInt(videojuego.getElementsByTagName("fechaLanzamiento")[0].textContent.split('-')[0]);
+                var anoParseado = (((anoLanzamiento - menor) / (mayor - menor)) * 800) + 50;
+                initX = 80;
+                initY = 20;
+
+                var valueTexto = (anoParseado / 100) * 70;
+                initX = initX + valueTexto;
+                initY = initY - valueTexto;
+
+                var linea = this.drawSvgLine(anoParseado + 50, anoParseado + 50, 3)
+                var texto = this.drawSvgText(initX, initY, videojuego.getAttribute("name") + " (" + anoLanzamiento + ")");
+                svg.appendChild(linea)
+                svg.appendChild(texto)
+            }
+            // Lo mostramos en el HTML
+            var divSvg = $("#svgGenerado")[0];
+            divSvg.appendChild(svg)
+
+            $("#mostrarSvg")[0].value = "Ocultar Línea Temporal (SVG)";
+            this.svgMostrado = true;
+        } else {
+            $("#svgGenerado")[0].innerHTML = "";
+            $("#mostrarSvg")[0].value = "Línea Temporal (SVG)";
+            this.svgMostrado = false;
+        }
+    }
+
+
+    // API Geolocalizacion
+    mostrarMapa(indice) {
+        var mapaDiv = $("#mapaDiv" + indice)[0];
+        var divDatos = $("#divDatos" + indice)[0];
+
+        if (!this.mapasMostrados.includes(indice)) {
+            var videogame = this.videogames[indice];
+            var lat = videogame.getElementsByTagName("latitud")[0].textContent;
+            var long = videogame.getElementsByTagName("longitud")[0].textContent;
+            var director = videogame.getElementsByTagName("director")[0].textContent;
+            var desarrolladora = videogame.getElementsByTagName("desarrolladora")[0].textContent;
+
+            mapaDiv.style.height = "40em";
+            mapaDiv.style.width = "70em";
+
+            var center = {
+                lat: parseFloat(lat),
+                lng: parseFloat(long)
+            };
+            var mapa = new google.maps.Map(mapaDiv, {
+                zoom: 5,
+                center: center
+            });
+            this.anadirMarcador(mapa, center, "red")
+            this.mapasMostrados.push(indice)
+            divDatos.innerHTML += '<h4>Información de Desarrollo</h4><p><strong>Director: </strong>' + director + ' ~ <strong>Desarrolladora: </strong>' + desarrolladora + '</p>';
+        } else {
+            mapaDiv.style.height = "0em";
+            mapaDiv.style.width = "0em";
+            mapaDiv.innerHTML = '';
+            divDatos.innerHTML = '';
+            this.mapasMostrados = this.arrayRemove(this.mapasMostrados, indice)
+        }
+    }
+
+    getGameDetailsAPI(name, indice) {
+        const settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.rawg.io/api/games/" + name + "?key=708e35a22dc549328fd1c58e0a6cf3b2",
+            "method": "GET",
+        };
+
+        $.ajax(settings).done(function (response) {
+            var line = "";
+            line += '<strong>Valoración en MetaCritic:</strong> ';
+            var valoracion = response.metacritic;
+            if (valoracion == null) {
+                line += "Desconocida";
+            }
+            else {
+                line += valoracion;
+            }
+
+            line += ' ~ <strong>Valoración de los jugadores:</strong> ';
+            var valoracionJ = response.rating;
+            if (valoracionJ == undefined) {
+                line += "Desconocida ";
+            }
+            else {
+                line += valoracionJ + "/5";
+            }
+
+            line += " ~ <strong>Apto para:</strong> "
+            var rating = response.esrb_rating;
+            if (rating == null) {
+                line += "Desconocido";
+            }
+            else {
+                switch (rating.id) {
+                    case 1:
+                        line += "Todos los Públicos"
+                        break;
+                    case 2:
+                        line += "Mayores de 10 años"
+                        break;
+                    case 3:
+                        line += "Mayores de 17 años"
+                        break;
+                    case 4:
+                        line += "Mayores de 18 años"
+                        break;
+                }
+            }
+            $('#apiInfo' + indice)[0].innerHTML += line;
+        });
+    }
+
+    anadirMarcador(mapa, posicion, color) {
+        var url = "http://maps.google.com/mapfiles/ms/icons/";
+        url += color + "-dot.png";
+
+        var marker = new google.maps.Marker({
+            map: mapa,
+            position: posicion,
+            icon: {
+                url: url
+            }
+        });
+        return marker;
+    }
+
+    // API  File
+    import(archivos) {
+        this.archivo = archivos[0];
+        var reader = new FileReader();
+        if (this.archivo.name.match(".xml")) {
+            reader.onload = function (evento) {
+                this.parseData(reader.result)
+                $("#botonInput")[0].remove();
+            }.bind(this)
+            reader.readAsText(this.archivo)
+        }
+    }
+
+    parseData(datos) {
+        var domParser = new DOMParser();
+        this.parsedData = domParser.parseFromString(datos, "text/xml")
+
+        this.showElements();
+    }
+
+    arrayRemove(array, element) {
+        var salida = []
+        for (var i = 0; i < array.length; i++) {
+            if (!(array[i] == element))
+                salida.push(array[i])
+        }
+        return salida;
+    }
+
+}
+
+var reader = new VideogameParser();

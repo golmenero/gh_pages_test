@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://localhost:90/sew/Extraordinaria/videojuegosXML.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="application-name" content="Expositor de Videojuegos">
+    <meta name="author" content="Carlos Gómez Colmenero">
+    <meta name="description" content="Página web dedicada a los fans de los videojuegos.">
+    <meta name="keywords" content="español, videojuegos, nintendo, microsoft, sony">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    
+    <script src="./6_files/jquery.min.js.descarga"></script>
+    <script defer="" src="./6_files/js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="./6_files/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./6_files/estilo-general.css">
+
+    <title> Expositor de Videojuegos - Importar desde XML</title>
+</head>
+
+<body>
+    <header>
+        <h1>Expositor de Videojuegos</h1>
+        <nav>
+            <ul>
+                <li><a href="http://localhost:90/sew/Extraordinaria/index.html">Inicio</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/historia.html">Historia del Videojuego</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/playstation.html">PlayStation</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/xbox.html">XBOX</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/switch.html">Nintendo Switch</a></li>
+                <li><a class="navActive" href="http://localhost:90/sew/Extraordinaria/videojuegosXML.html">Mis Videojuegos (XML, JS)</a></li>
+                <li><a href="http://localhost:90/sew/Extraordinaria/videojuegosPHP.php">Base de Datos (PHP)</a></li>
+            </ul>
+        </nav>
+
+        <h2>Carga tus videojuegos desde un archivo XML</h2>
+    </header>
+    <main>
+        <p>IMPORTANTE. Recuerda que esta pagina procesa el XML dinamicamente, por lo que si cambias de página y deseas volver, deberás importar el archivo nuevamente.</p>
+        <div id="botonesGraficos"></div>
+    <div id="botonInput">
+        <input type="file" title="Importar Archivo XML" id="importarArchivo" onchange="reader.import(this.files)">
+    </div>
+    <div id="svgGenerado"></div>
+    <div id="canvasGenerado"></div>
+    <div id="container"></div>
+</main>
+    <footer>
+    </footer>
+
+
+
+    <script src="./6_files/videojuegosXML.js.descarga"></script>
+
+
+</body></html>
